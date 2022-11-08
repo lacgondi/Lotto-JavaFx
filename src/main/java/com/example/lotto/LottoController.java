@@ -23,28 +23,31 @@ public class LottoController {
 
     @FXML
     public void sorsolCLick(ActionEvent actionEvent) {
-        if(sorsoltSzamokLista.size()==5){
+        if (sorsolGomb.getText().equals("Rendez")){
             Collections.sort(sorsoltSzamokLista);
-            sorsoltSzamok.getChildren().clear();
-            for (int szam: sorsoltSzamokLista){
-                sorsoltSzamok.getChildren().add(new Label(String.valueOf(szam)));
-            }
+            szamokFrissiteseListaAlapjan();
+            sorsoltSzamokLista.clear();
+            sorsolGomb.setText("Sorsol");
         }else {
-            int sorsoltSzam = rng.nextInt(98)+1;
-            while (sorsoltSzamokLista.contains(sorsoltSzam)){
-                sorsoltSzam = rng.nextInt(98)+1;
+            int sorsoltSzam = rng.nextInt(90) + 1;
+            while (sorsoltSzamokLista.contains(sorsoltSzam)) {
+                sorsoltSzam = rng.nextInt(90) + 1;
             }
             sorsoltSzamokLista.add(sorsoltSzam);
             sorsoltSzamLabel.setText(String.valueOf(sorsoltSzam));
 
-            sorsoltSzamok.getChildren().clear();
-            for (int szam: sorsoltSzamokLista){
-                sorsoltSzamok.getChildren().add(new Label(String.valueOf(szam)));
+            szamokFrissiteseListaAlapjan();
+
+            if (sorsoltSzamokLista.size() == 5) {
+                sorsolGomb.setText("Rendez");
             }
         }
+    }
 
-        if(sorsoltSzamokLista.size()==5){
-            sorsolGomb.setText("Rendez");
+    private void szamokFrissiteseListaAlapjan() {
+        sorsoltSzamok.getChildren().clear();
+        for (int szam: sorsoltSzamokLista){
+            sorsoltSzamok.getChildren().add(new Label(String.valueOf(szam)));
         }
     }
 }
